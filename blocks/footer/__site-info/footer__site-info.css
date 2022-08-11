@@ -1,0 +1,13 @@
+.footer__site-info{
+  margin: 0 200px;
+  color: #545454;
+  font-size: 18px;
+  line-height: 1.21;
+}
+
+@media all and (max-width:1279px){
+  .footer__site-info{
+    margin: 0 19px;
+    font-size: 14px;
+  }
+}

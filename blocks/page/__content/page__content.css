@@ -1,0 +1,10 @@
+.page__content{
+  width:1280px;
+  margin: auto;
+}
+
+@media all and (max-width:1279px){
+  .page__content{
+    width:320px;
+  }
+}

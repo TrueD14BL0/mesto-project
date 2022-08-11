@@ -1,0 +1,11 @@
+.profile__add-button:hover{
+  cursor: pointer;
+  opacity: .5;
+}
+
+@media all and (max-width:1279px){
+  .profile__add-button{
+    margin: 0;
+    content: url('../../../images/Add\ Button\ long.svg');
+  }
+}

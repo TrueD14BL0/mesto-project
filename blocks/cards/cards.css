@@ -1,0 +1,12 @@
+.cards{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-auto-rows: 361px;
+  gap: 20px 17px;
+}
+
+@media all and (max-width:1279px){
+  .cards{
+    grid-template-columns: 1fr;
+  }
+}
