@@ -6,7 +6,7 @@
   line-height: 1.21;
 }
 
-@media all and (max-width:1279px) {
+@media all and (max-width:800px) {
   .form-profile-edit__title{
     margin: 0 0 45px 0;
     font-size: 18px;

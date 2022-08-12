@@ -5,7 +5,7 @@
   line-height: 1.21;
 }
 
-@media all and (max-width:1279px){
+@media all and (max-width:800px){
   .footer__site-info{
     margin: 0 19px;
     font-size: 14px;
