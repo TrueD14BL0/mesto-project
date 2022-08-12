@@ -1,7 +1,7 @@
 .profile__info{
   display: grid;
   margin: 0 10px 0 30px;
-  grid-template-columns: minmax(auto, max-content) 24px;
+  grid-template-columns: minmax(auto, max-content) minmax(24px, );
   grid-template-areas: 
     "title edit"
     "subtitle subtitle"
@@ -16,6 +16,11 @@
   .profile__info{
     margin: 0;
     max-width: 282px;
+    grid-template-columns: 1fr minmax(auto, max-content) 18px 1fr;
+    grid-template-areas: 
+    ". title edit ."
+    "subtitle subtitle subtitle subtitle"
+  ;
     justify-content: center;
     text-align: center;
     padding: 26px 0 36px;
