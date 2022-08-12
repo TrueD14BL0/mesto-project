@@ -1,0 +1,16 @@
+.popup__close-button{
+  width: 32px;
+  box-sizing: border-box;
+  grid-area: button;
+  justify-self: end;
+}
+
+.popup__close-button:hover{
+  opacity: .5;
+}
+
+@media all and (max-width:1279px){
+  .popup__close-button{
+    width: 20px;
+  }
+}

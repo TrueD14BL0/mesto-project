@@ -13,44 +13,44 @@
       <img class="header__logo" alt="Логотип" src="./images/logo_white.svg">
     </header>
     <main class="main-content">
-      <section class="profile" areate>
-        <img class="profile__avatar" src="./images/Avatar.jpg" alt="Аватар текущего профиля">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар текущего профиля">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <img class="profile__edit-button" src="./images/Edit Button.svg" alt="Кнопка редактировать профиль">
+          <img class="profile__edit-button" src="./images/edit_button.svg" alt="Кнопка редактировать профиль">
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <img class="profile__add-button" src="./images/Add Button.svg" alt="Кнопка добавить профиль">
+        <img class="profile__add-button" src="./images/add_button.svg" alt="Кнопка добавить профиль">
       </section>
       <section class="cards" aria-label="Галлерея фотографий">
         <article class="card">
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Фотография карточки">
-          <p class="card__text">Карачаевск</p>
+          <h2 class="card__text">Карачаевск</h2>
           <img class="card__like" src="./images/like.svg" alt="Поставить лайк">
         </article>
         <article class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="Фотография карточки">
-          <p class="card__text">Гора Эльбрус</p>
+          <h2 class="card__text">Гора Эльбрус</h2>
           <img class="card__like" src="./images/like.svg" alt="Поставить лайк">
         </article>
         <article class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Фотография карточки">
-          <p class="card__text">Домбай</p>
+          <h2 class="card__text">Домбай</h2>
           <img class="card__like" src="./images/like.svg" alt="Поставить лайк">
         </article>
         <article class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="Фотография карточки">
-          <p class="card__text">Гора Эльбрус</p>
+          <h2 class="card__text">Гора Эльбрус</h2>
           <img class="card__like" src="./images/like.svg" alt="Поставить лайк">
         </article>
         <article class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Фотография карточки">
-          <p class="card__text">Домбай</p>
+          <h2 class="card__text">Домбай</h2>
           <img class="card__like" src="./images/like.svg" alt="Поставить лайк">
         </article>
         <article class="card">
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Фотография карточки">
-          <p class="card__text">Карачаево-Ч...</p>
+          <h2 class="card__text">Карачаево-Черкессия</h2>
           <img class="card__like" src="./images/like.svg" alt="Поставить лайк">
         </article>
       </section>
@@ -58,6 +58,17 @@
     <footer class="footer">
       <p class="footer__site-info">&commat; 2020 Mesto Russia</p>
     </footer>
+  </div>
+  <div class="popup page__popup popup_opened">
+    <div class="popup__container">
+      <form class="form-profile-edit popup__form">
+        <p class="form-profile-edit__title">Редактировать профиль</p>
+        <input type="text" name="title" value="Жак-Ив Кусто" class="form-profile-edit__text-input">
+        <input type="text" name="subtitle" value="Исследователь океана" class="form-profile-edit__text-input">
+        <input type="submit" class="form-profile-edit__button" value="Сохранить">
+      </form>
+      <img src="./images/close_icon.svg" alt="закрыть модальное окно" class="popup__close-button">
+    </div>
   </div>
 </body>
 </html>

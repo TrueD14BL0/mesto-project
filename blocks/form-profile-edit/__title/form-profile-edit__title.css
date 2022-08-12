@@ -1,0 +1,14 @@
+.form-profile-edit__title{
+  margin: 0 0 24px 0;
+  color: #000;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.21;
+}
+
+@media all and (max-width:1279px) {
+  .form-profile-edit__title{
+    margin: 0 0 45px 0;
+    font-size: 18px;
+  }  
+}

@@ -1,0 +1,14 @@
+.form-profile-edit{
+  min-height: 330px;
+  box-sizing: border-box;
+  padding: 36px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+@media all and (max-width:1279px) {
+  .form-profile-edit{
+    min-height: 322px;
+    padding: 25px 22px;
+  }
+}

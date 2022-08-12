@@ -1,0 +1,26 @@
+.popup__container{
+  margin-left: 40px;
+  margin-top: -40px;
+  display: grid;
+  grid-template-areas: 
+    ". button"
+    "form ."
+  ;
+  grid-template-columns: 430px 32px;
+  grid-template-rows: 32px 1fr;
+  gap: 8px;
+}
+
+@media all and (max-width:1279px) {
+  .popup__container{
+    margin-left: 0;
+    margin-top: -36px;
+    grid-template-areas: 
+    "button"
+    "form"
+    ;
+    grid-template-columns: 282px;
+    grid-template-rows: 20px 1fr;
+    gap: 16px;
+  }
+}
