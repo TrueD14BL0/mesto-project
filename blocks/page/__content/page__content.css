@@ -5,6 +5,6 @@
 
 @media all and (max-width:800px){
   .page__content{
-    width:320px;
+    max-width:320px;
   }
 }

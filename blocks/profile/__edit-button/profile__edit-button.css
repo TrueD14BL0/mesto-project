@@ -1,18 +1,20 @@
 .profile__edit-button{
   height: 24px;
   width: 24px;
-  border: 0;
+  border: 1px solid #fff;
   padding: 0;
   box-sizing: border-box;
   background-color: #000;
-  background-image: url('../../../images/edit_button.svg');
+  background-image: url('../../../images/pencil.svg');
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-position: center;
+  background-size: 41.66%;
+  grid-area: edit;
 }
 
 .profile__edit-button:hover{
   cursor: pointer;
-  opacity: .5;
+  opacity: .6;
 }
 
 @media all and (max-width:800px){

@@ -1,16 +1,16 @@
 .profile__subtitle{
-  margin: 16px 10px 0 30px;
+  margin: 0;
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  grid-area: subtitle;
 }
 
 @media all and (max-width:800px){
   .profile__subtitle{
-    margin: 14px 0 0;
     font-size: 14px;
   }
 }

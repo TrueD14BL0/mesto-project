@@ -3,7 +3,6 @@
   display: grid;
   grid-template-columns: 120px calc(100% - 270px) 150px;
   align-items: center;
-  border-top: 1px solid rgba(54,54,54,.7);
   box-sizing: border-box;
 }
 

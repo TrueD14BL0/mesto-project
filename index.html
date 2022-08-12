@@ -11,65 +11,64 @@
   <div class="page__content">
     <header class="header">
       <img class="header__logo" alt="Логотип" src="./images/logo_white.svg">
+      <div class="header__line"></div>
     </header>
     <main class="main-content">
       <section class="profile">
         <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар текущего профиля">
         <div class="profile__info">
-          <div class="profile__title-group">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
-          </div>
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button type="button" class="profile__edit-button"></button>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button"></button>
       </section>
       <section class="cards" aria-label="Галлерея фотографий">
         <article class="card">
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Фотография карточки">
           <h2 class="card__text">Карачаевск</h2>
-          <button class="card__like"></button>
+          <button type="button" class="card__like"></button>
         </article>
         <article class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="Фотография карточки">
           <h2 class="card__text">Гора Эльбрус</h2>
-          <button class="card__like"></button>
+          <button type="button" class="card__like"></button>
         </article>
         <article class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Фотография карточки">
           <h2 class="card__text">Домбай</h2>
-          <button class="card__like"></button>
+          <button type="button" class="card__like"></button>
         </article>
         <article class="card">
           <img class="card__image" src="./images/elbrus.jpg" alt="Фотография карточки">
           <h2 class="card__text">Гора Эльбрус</h2>
-          <button class="card__like"></button>
+          <button type="button" class="card__like"></button>
         </article>
         <article class="card">
           <img class="card__image" src="./images/dombai.jpg" alt="Фотография карточки">
           <h2 class="card__text">Домбай</h2>
-          <button class="card__like"></button>
+          <button type="button" class="card__like"></button>
         </article>
         <article class="card">
           <img class="card__image" src="./images/karachaevsk.jpg" alt="Фотография карточки">
           <h2 class="card__text">Карачаево-Черкессия</h2>
-          <button class="card__like"></button>
+          <button type="button" class="card__like"></button>
         </article>
       </section>
     </main>
     <footer class="footer">
-      <p class="footer__site-info">&commat; 2020 Mesto Russia</p>
+      <p class="footer__site-info">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup page__popup popup_opened">
+  <div class="popup page__popup">
     <div class="popup__container">
-      <form class="form-profile-edit popup__form">
-        <p class="form-profile-edit__title">Редактировать профиль</p>
+      <form class="form-profile-edit" name="form-profile-edit">
+        <h2 class="form-profile-edit__title">Редактировать профиль</h2>
         <input type="text" name="title" value="Жак-Ив Кусто" class="form-profile-edit__text-input">
         <input type="text" name="subtitle" value="Исследователь океана" class="form-profile-edit__text-input">
         <input type="submit" class="form-profile-edit__button" value="Сохранить">
       </form>
-      <button class="popup__close-button"></button>
+      <button type="button" class="popup__close-button"></button>
     </div>
   </div>
 </body>
