@@ -1,5 +1,4 @@
 .header{
-  max-height: 74px;
   padding: 0 0 41px;
   box-sizing: border-box;
   border-bottom: 1px solid rgba(54,54,54,.7);
@@ -7,7 +6,6 @@
 
 @media all and (max-width:800px){
   .header{
-    max-height: 56px;
     padding: 0 27px 32px;
   }
 }
