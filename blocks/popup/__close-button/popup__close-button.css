@@ -4,10 +4,6 @@
   right: -40px;
   width: 32px;
   height: 32px;
-  border: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-color: rgba(0, 0, 0, .0);
   background-image: url('../../../images/close_icon.svg');
   background-repeat: no-repeat;
   background-size: 100% 100%;

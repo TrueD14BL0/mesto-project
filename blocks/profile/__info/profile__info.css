@@ -1,4 +1,6 @@
 .profile__info{
+  max-width: 336px;
+  max-height: 73px;
   display: grid;
   margin: 0 10px 0 30px;
   grid-template-columns: minmax(auto, max-content) minmax(24px, );
@@ -8,7 +10,7 @@
   ;
   align-items: baseline;
   justify-content: start;
-  gap:16px 18px;
+  gap:6px 18px;
 }
 
 
