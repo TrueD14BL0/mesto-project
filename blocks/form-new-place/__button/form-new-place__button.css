@@ -1,0 +1,22 @@
+.form-new-place__button{
+  margin: 48px 0 0;
+  width: 100%;
+  min-height: 50px;
+  border-radius: 2px;
+  background-color: #000;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.21;
+}
+
+.form-new-place__button:hover{
+  background-color: rgba(0,0,0,.8);
+}
+
+@media all and (max-width:800px){
+  .form-new-place__button{
+    margin-top: 45px;
+    font-size: 14px;
+    min-height: 46px;
+  }
+}

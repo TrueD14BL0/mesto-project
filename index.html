@@ -36,7 +36,25 @@
         <input type="text" name="job" value="" class="form-profile-edit__job form-profile-edit__text-input" placeholder="Введите род занятий" required>
         <input type="submit" class="default-button form-profile-edit__button" value="Сохранить">
       </form>
-      <button type="button" class="default-button popup__close-button" aria-label="Закрыть форму"></button>
+      <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>
+    </div>
+  </div>
+  <div class="popup page__popup popup_type_add-form">
+    <div class="popup__container">
+      <form class="form-new-place" name="form-new-place">
+        <h2 class="form-new-place__title">Новое место</h2>
+        <input type="text" name="name" value="" class="form-new-place__name form-new-place__text-input" placeholder="Название" required>
+        <input type="text" name="url" value="" class="form-new-place__url form-new-place__text-input" placeholder="Ссылка на картинку" required>
+        <input type="submit" class="default-button form-new-place__button" value="Создать">
+      </form>
+      <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>
+    </div>
+  </div>
+  <div class="popup page__popup popup_type_picture">
+    <div class="popup__container">
+      <p class="popup__description"></p>
+      <img class="popup__picture" alt="Предпросмотр выбранной карточки" src="#">
+      <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>
     </div>
   </div>
   <template id="card-template">
@@ -44,9 +62,9 @@
       <img class="card__image" src="" alt="">
       <h2 class="card__text"></h2>
       <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
+      <button type="button" class="default-button card__delete" aria-label="Удалить карточку"></button>
     </article>
   </template>
-
   <script src="./pages/index.js"></script>
 </body>
 </html>
