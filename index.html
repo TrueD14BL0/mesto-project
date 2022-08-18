@@ -22,54 +22,31 @@
         </div>
         <button type="button" class="default-button profile__add-button" aria-label="Добавить фотографию"></button>
       </section>
-      <section class="cards" aria-label="Галлерея фотографий">
-        <article class="card">
-          <img class="card__image" src="./images/karachaevsk.jpg" alt="Заброшенный храм на фоне гор">
-          <h2 class="card__text">Карачаевск</h2>
-          <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/elbrus.jpg" alt="Степь на рассвете, на горизонте виднеется Эльбрус">
-          <h2 class="card__text">Гора Эльбрус</h2>
-          <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/dombai.jpg" alt="Горная гряда, заснеженный хребет на заднем фоне, с высоким пиком">
-          <h2 class="card__text">Домбай</h2>
-          <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/elbrus.jpg" alt="Степь на рассвете, на горизонте виднеется Эльбрус">
-          <h2 class="card__text">Гора Эльбрус</h2>
-          <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/dombai.jpg" alt="Горная гряда, заснеженный хребет на заднем фоне, с высоким пиком">
-          <h2 class="card__text">Домбай</h2>
-          <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
-        </article>
-        <article class="card">
-          <img class="card__image" src="./images/karachaevsk.jpg" alt="Заброшенный храм на фоне гор">
-          <h2 class="card__text">Карачаево-Черкессия</h2>
-          <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
-        </article>
-      </section>
+      <section class="cards" aria-label="Галлерея фотографий"></section>
     </main>
     <footer class="footer">
       <p class="footer__site-info">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup page__popup">
+  <div class="popup page__popup popup_type_edit-form">
     <div class="popup__container">
       <form class="form-profile-edit" name="form-profile-edit">
         <h2 class="form-profile-edit__title">Редактировать профиль</h2>
-        <input type="text" name="title" value="Жак-Ив Кусто" class="form-profile-edit__text-input" placeholder="Введите имя" required>
-        <input type="text" name="subtitle" value="Исследователь океана" class="form-profile-edit__text-input" placeholder="Введите род занятий" required>
+        <input type="text" name="name" value="" class="form-profile-edit__name form-profile-edit__text-input" placeholder="Введите имя" required>
+        <input type="text" name="job" value="" class="form-profile-edit__job form-profile-edit__text-input" placeholder="Введите род занятий" required>
         <input type="submit" class="default-button form-profile-edit__button" value="Сохранить">
       </form>
       <button type="button" class="default-button popup__close-button" aria-label="Закрыть форму"></button>
     </div>
   </div>
+  <template id="card-template">
+    <article class="card">
+      <img class="card__image" src="" alt="">
+      <h2 class="card__text"></h2>
+      <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
+    </article>
+  </template>
+
   <script src="./pages/index.js"></script>
 </body>
 </html>
