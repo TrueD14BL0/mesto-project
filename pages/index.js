@@ -59,7 +59,7 @@ function createCard(name, link){
   imageNewCard.src = link;
   imageNewCard.alt = name;
   cardNew.querySelector('.card__text').textContent = name;
-  cardNew.querySelector('.card__image').addEventListener('click', (evt)=>preparePopup(previewPopup, fillPreview(evt)));
+  imageNewCard.addEventListener('click', (evt)=>preparePopup(previewPopup, fillPreview(evt)));
   cardNew.querySelector('.card__like').addEventListener('click', (evt)=>setLikeActive(evt));
   cardNew.querySelector('.card__delete').addEventListener('click', (evt)=>pushDeleteCardBtn(evt));
   return cardNew;
@@ -92,16 +92,11 @@ function closePopup(popup){
   popup.classList.remove('popup_opened');
 }
 
-function findCloseBtn(parent){
-  return parent.querySelector('.popup__close-button');
-}
-
 function openPopup(popup){
   popup.classList.add('popup_opened');
 }
 
 function preparePopup(popup, fillFunc){
-  const closeBtn = findCloseBtn(popup);
   openPopup(popup);
   fillFunc();
 }
