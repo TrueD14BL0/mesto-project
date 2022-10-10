@@ -13,6 +13,13 @@
   background-color: rgba(0,0,0,.8);
 }
 
+.form__button:disabled{
+  color: rgba(0,0,0,.2);
+  border: 1px solid rgba(0,0,0,.2);
+  background-color: #fff;
+  cursor:not-allowed;
+}
+
 @media all and (max-width:800px){
   .form__button{
     margin-top: 45px;
