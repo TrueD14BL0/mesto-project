@@ -30,22 +30,26 @@
   </div>
   <div class="popup page__popup popup_type_edit-form">
     <div class="popup__container">
-      <form class="popup__form form-profile-edit" name="form-profile-edit">
-        <h2 class="form-profile-edit__title">Редактировать профиль</h2>
-        <input type="text" name="name" value="" class="form-profile-edit__name form-profile-edit__text-input" placeholder="Введите имя" required>
-        <input type="text" name="job" value="" class="form-profile-edit__job form-profile-edit__text-input" placeholder="Введите род занятий" required>
-        <input type="submit" class="default-button form-profile-edit__button" value="Сохранить">
+      <form class="popup__form form form-profile-edit" name="form-profile-edit">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <input type="text" name="name" value="" class="form-profile-edit__name form__text-input" placeholder="Введите имя" required>
+        <span class="form__span">Вы пропустили это поле</span>
+        <input type="text" name="job" value="" class="form-profile-edit__job form__text-input" placeholder="Введите род занятий" required>
+        <span class="form__span">Введите адрес сайта</span>
+        <input type="submit" class="default-button form__button" value="Сохранить">
       </form>
       <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>
     </div>
   </div>
   <div class="popup page__popup popup_type_add-form">
     <div class="popup__container">
-      <form class="popup__form form-new-place" name="form-new-place">
-        <h2 class="form-new-place__title">Новое место</h2>
-        <input type="text" name="name" value="" class="form-new-place__name form-new-place__text-input" placeholder="Название" required>
-        <input type="text" name="url" value="" class="form-new-place__url form-new-place__text-input" placeholder="Ссылка на картинку" required>
-        <input type="submit" class="default-button form-new-place__button" value="Создать">
+      <form class="popup__form form form-new-place" name="form-new-place">
+        <h2 class="form__title">Новое место</h2>
+        <input type="text" name="name" value="" class="form-new-place__name form__text-input" placeholder="Название" required>
+        <span class="form__span">Вы пропустили это поле</span>
+        <input type="text" name="url" value="" class="form-new-place__url form__text-input" placeholder="Ссылка на картинку" required>
+        <span class="form__span">Введите адрес сайта</span>
+        <input type="submit" class="default-button form__button" value="Создать">
       </form>
       <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>
     </div>

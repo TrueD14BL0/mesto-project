@@ -1,0 +1,9 @@
+.form__span{
+  color: red;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}

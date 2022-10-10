@@ -42,13 +42,9 @@
 @import url('../blocks/popup/_type/popup_type_picture.css');
 @import url('../blocks/popup/__form/popup__form.css');
 
-@import url('../blocks/form-profile-edit/form-profile-edit.css');
-@import url('../blocks/form-profile-edit/__title/form-profile-edit__title.css');
-@import url('../blocks/form-profile-edit/__text-input/form-profile-edit__text-input.css');
-@import url('../blocks/form-profile-edit/__button/form-profile-edit__button.css');
-
-@import url('../blocks/form-new-place/form-new-place.css');
-@import url('../blocks/form-new-place/__button/form-new-place__button.css');
-@import url('../blocks/form-new-place/__text-input/form-new-place__text-input.css');
-@import url('../blocks/form-new-place/__title/form-new-place__title.css');
-
+@import url('../blocks/form/form.css');
+@import url('../blocks/form/__text-input/form__text-input.css');
+@import url('../blocks/form/__title/form__title.css');
+@import url('../blocks/form/__button/form__button.css');
+@import url('../blocks/form/__button/_disabled/form__button_disabled.css');
+@import url('../blocks/form/__span/form__span.css');
