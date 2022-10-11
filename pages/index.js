@@ -131,8 +131,7 @@ function initForms(){
 }
 
 function fillNewPlaceForm(){
-  placeNewNameInput.value = '';
-  placeNewUrlInput.value = '';
+  formProfileEdit.reset();
 }
 
 function documentKeyListenerHandler(evt){
