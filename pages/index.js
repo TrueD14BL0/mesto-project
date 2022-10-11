@@ -137,13 +137,29 @@ function initCloseButtons(){
   buttonsCloseList.forEach(element => element.addEventListener('click', (evt) => closePopup(evt.target.closest('.popup'))));
 }
 
+function initPopup(pUp) {
+  pUp.addEventListener('click',  (evt)=>{console.log(evt.target);closePopup(pUp)});
+  pUp.addEventListener('keyDown',  (evt)=>{
+    console.log(evt.key);
+    if(evt.key=='Esc'){
+      closePopup(pUp);
+    };
+  });
+}
+
+function initPopups() {
+  initPopup(popupEditForm);
+  initPopup(popupAddNewPlaceForm);
+  initPopup(previewPopup);
+}
+
 function initSiteElements(){
   buttonEditProfile.addEventListener('click', ()=>preparePopup(popupEditForm, fillEditForm));
   buttonAddNewPlace.addEventListener('click', ()=>preparePopup(popupAddNewPlaceForm, fillNewPlaceForm));
   initCloseButtons();
   initCards();
   initForms();
+  initPopups();
 }
 
 initSiteElements();
-
