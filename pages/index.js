@@ -87,15 +87,25 @@ function initCards(){
   });
 }
 
+function documentKeyListenerHandler(evt){
+  if(evt.key=='Escape'){
+    closePopup();
+  };
+}
+
+function documentKeyListenerHandler(evt){
+  if(evt.key=='Escape'){
+    closePopup();
+  };
+}
+
 function closePopup(){
   const popup = document.querySelector('.popup_opened');
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', documentKeyListenerHandler);
 }
 
 function openPopup(popup){
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', documentKeyListenerHandler);
 }
 
 function preparePopup(popup, fillFunc){
@@ -122,11 +132,11 @@ function fillEditForm(){
 function initForms(){
   formProfileEdit.addEventListener('submit', (evt)=>{
       saveProfileData(evt);
-      closePopup(popupEditForm);
+      closePopup();
   });
   formAddingNewPlace.addEventListener('submit', (evt)=>{
     createcardNewFromAddForm(evt);
-    closePopup(popupAddNewPlaceForm);
+    closePopup();
   });
 }
 
@@ -134,24 +144,10 @@ function fillNewPlaceForm(){
   formProfileEdit.reset();
 }
 
-function documentKeyListenerHandler(evt){
-  if(evt.key=='Escape'){
+function documentClickListenerHandler(evt) {
+  if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')){
     closePopup();
   };
-}
-
-function initPopup(pUp) {
-  pUp.addEventListener('click',  (evt)=>{
-    if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')){
-      closePopup(pUp);
-    }
-  });
-}
-
-function initPopups() {
-  initPopup(popupEditForm);
-  initPopup(popupAddNewPlaceForm);
-  initPopup(previewPopup);
 }
 
 function initSiteElements(){
@@ -159,7 +155,8 @@ function initSiteElements(){
   buttonAddNewPlace.addEventListener('click', ()=>preparePopup(popupAddNewPlaceForm, fillNewPlaceForm));
   initCards();
   initForms();
-  initPopups();
+  document.addEventListener('keydown', documentKeyListenerHandler);
+  document.addEventListener('click', documentClickListenerHandler);
 }
 
 initSiteElements();
