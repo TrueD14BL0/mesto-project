@@ -32,10 +32,12 @@
     <div class="popup__container">
       <form class="popup__form form form-profile-edit" name="form-profile-edit">
         <h2 class="form__title">Редактировать профиль</h2>
-        <input type="text" name="name" value="" class="form-profile-edit__name form__text-input" placeholder="Введите имя" required>
-        <span class="form__span">Вы пропустили это поле</span>
-        <input type="text" name="job" value="" class="form-profile-edit__job form__text-input" placeholder="Введите род занятий" required>
-        <span class="form__span">Введите адрес сайта</span>
+        <input type="text" id="edit-form-name" name="name" value="" class="form-profile-edit__name form__text-input" placeholder="Введите имя" required
+          required minlength="2" maxlength="40" data-custom-error="Поле «Имя» может содержать латинские буквы, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яёА-ЯЁ\- ]+$">
+        <span class="form__span edit-form-name-error">Вы пропустили это поле</span>
+        <input type="text" id="edit-form-job" name="job" value="" class="form-profile-edit__job form__text-input" placeholder="Введите род занятий" required
+          required minlength="2" maxlength="200" data-custom-error="Поле «О себе» может содержать латинские буквы, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яёА-ЯЁ\- ]+$">
+        <span class="form__span edit-form-job-error">Введите адрес сайта</span>
         <input type="submit" class="default-button form__button" value="Сохранить">
       </form>
       <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>
@@ -45,10 +47,11 @@
     <div class="popup__container">
       <form class="popup__form form form-new-place" name="form-new-place">
         <h2 class="form__title">Новое место</h2>
-        <input type="text" name="name" value="" class="form-new-place__name form__text-input" placeholder="Название" required>
-        <span class="form__span">Вы пропустили это поле</span>
-        <input type="url" name="url" value="" class="form-new-place__url form__text-input" placeholder="Ссылка на картинку" required>
-        <span class="form__span">Введите адрес сайта</span>
+        <input type="text" id="new-place-form-name" name="name" value="" class="form-new-place__name form__text-input" placeholder="Название" required minlength="2" maxlength="30"
+          data-custom-error="Поле «Название» может содержать латинские буквы, кириллические буквы, знаки дефиса и пробелы" pattern="^[a-zA-Zа-яёА-ЯЁ\- ]+$">
+        <span class="form__span new-place-form-name-error">Вы пропустили это поле</span>
+        <input type="url" id="new-place-form-url" name="url" value="" class="form-new-place__url form__text-input" placeholder="Ссылка на картинку" required>
+        <span class="form__span new-place-form-url-error">Введите адрес сайта</span>
         <input type="submit" class="default-button form__button" value="Создать">
       </form>
       <button type="button" class="default-button popup__close-button" aria-label="Закрыть модальное окно"></button>

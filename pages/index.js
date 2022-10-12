@@ -156,7 +156,7 @@ function initSiteElements(){
   initCards();
   initForms();
   document.addEventListener('keydown', documentKeyListenerHandler);
-  document.addEventListener('click', documentClickListenerHandler);
+  document.addEventListener('mousedown', documentClickListenerHandler);
 }
 
 initSiteElements();
