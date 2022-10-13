@@ -1,3 +1,5 @@
+import '../styles/index.css';
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -85,12 +87,6 @@ function initCards(){
   initialCards.forEach(element => {
     addCardToCards(createCard(element.name, element.link));
   });
-}
-
-function documentKeyListenerHandler(evt){
-  if(evt.key=='Escape'){
-    closePopup();
-  };
 }
 
 function documentKeyListenerHandler(evt){
