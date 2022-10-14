@@ -70,27 +70,24 @@ function documentMouseDownListenerHandler(evt) {
   };
 }
 
+function formKeyDownListenerHandler(evt) {
+  const inputList = getInputListFromForm(formAddingNewPlace, '.form__text-input');
+  if(!inputList){
+    this.submit();
+  }
+}
+
 function initForms(){
   formProfileEdit.addEventListener('submit', (evt)=>{
     saveProfileData(evt);
     closePopup();
   });
-  formProfileEdit.addEventListener('keydown', (evt)=>{
-    const inputList = getInputListFromForm(formProfileEdit, '.form__text-input');
-    if(!inputList){
-      formAddingNewPlace.submit();
-    }
-  });
+  formProfileEdit.addEventListener('keydown', (evt)=>formKeyDownListenerHandler);
   formAddingNewPlace.addEventListener('submit', (evt)=>{
     createcardNewFromAddForm(evt);
     closePopup();
   });
-  formAddingNewPlace.addEventListener('keydown', (evt)=>{
-    const inputList = getInputListFromForm(formAddingNewPlace, '.form__text-input');
-    if(!inputList){
-      formAddingNewPlace.submit();
-    }
-  });
+  formAddingNewPlace.addEventListener('keydown', (evt)=>formKeyDownListenerHandler);
 }
 
 function callToggleButton(form){
