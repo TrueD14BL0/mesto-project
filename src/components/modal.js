@@ -1,4 +1,6 @@
 import { addCardToCards, createCard } from './card';
+import { getInputListFromForm, getSubmitFromForm } from './utils'
+import { toggleButtonState } from './validate'
 
 const previewDescription = document.querySelector('.popup__description');
 const previewImage = document.querySelector('.popup__picture');
@@ -44,21 +46,23 @@ export function fillPreview(evt){
   previewImage.src = selectedCard.querySelector('.card__image').src;
   previewImage.alt = cardText;
 }
-
-export function openPopup(popup){
-  popup.classList.add('popup_opened');
-}
-
-function closePopup(){
-  const popup = document.querySelector('.popup_opened');
-  popup.classList.remove('popup_opened');
-}
-
 function documentKeyListenerHandler(evt){
   if(evt.key=='Escape'){
     closePopup();
   };
 }
+
+export function openPopup(popup){
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', documentKeyListenerHandler);
+}
+
+function closePopup(){
+  const popup = document.querySelector('.popup_opened');
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', documentKeyListenerHandler);
+}
+
 
 function documentMouseDownListenerHandler(evt) {
   if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')){
@@ -77,16 +81,21 @@ function initForms(){
   });
 }
 
+function callToggleButton(form){
+  toggleButtonState(getInputListFromForm(form, '.form__text-input'), getSubmitFromForm(form, '.form__button'), 'popup__button_disabled');
+}
+
 export function initPopups(){
   initForms();
   buttonEditProfile.addEventListener('click', ()=>{
     openPopup(popupEditForm);
-    fillEditForm()
+    fillEditForm();
+    callToggleButton(popupEditForm);
   });
   buttonAddNewPlace.addEventListener('click', ()=>{
     openPopup(popupAddNewPlaceForm);
     fillNewPlaceForm();
+    callToggleButton(popupAddNewPlaceForm);
   });
-  document.addEventListener('keydown', documentKeyListenerHandler);
   document.addEventListener('mousedown', documentMouseDownListenerHandler);
 }
