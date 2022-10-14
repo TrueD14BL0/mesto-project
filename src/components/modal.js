@@ -1,6 +1,6 @@
 import { addCardToCards, createCard } from './card';
 import { getInputListFromForm, getSubmitFromForm } from './utils'
-import { toggleButtonState } from './validate'
+import { toggleButtonState, hasInvalidInput } from './validate'
 
 const previewDescription = document.querySelector('.popup__description');
 const previewImage = document.querySelector('.popup__picture');
@@ -72,12 +72,24 @@ function documentMouseDownListenerHandler(evt) {
 
 function initForms(){
   formProfileEdit.addEventListener('submit', (evt)=>{
-      saveProfileData(evt);
-      closePopup();
+    saveProfileData(evt);
+    closePopup();
+  });
+  formProfileEdit.addEventListener('keydown', (evt)=>{
+    const inputList = getInputListFromForm(formProfileEdit, '.form__text-input');
+    if(!inputList){
+      formAddingNewPlace.submit();
+    }
   });
   formAddingNewPlace.addEventListener('submit', (evt)=>{
     createcardNewFromAddForm(evt);
     closePopup();
+  });
+  formAddingNewPlace.addEventListener('keydown', (evt)=>{
+    const inputList = getInputListFromForm(formAddingNewPlace, '.form__text-input');
+    if(!inputList){
+      formAddingNewPlace.submit();
+    }
   });
 }
 
