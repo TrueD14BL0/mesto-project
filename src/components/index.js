@@ -1,10 +1,12 @@
 import '../styles/index.css';
 import { initPopups } from './modal';
-import { initCards } from './card';
+
 import { enableValidation } from './validate';
+import { initProfile } from './profile';
 
 (function initSiteElements(){
-  initCards();
+  initProfile();
+
   initPopups();
   enableValidation({
     formSelector: '.form',

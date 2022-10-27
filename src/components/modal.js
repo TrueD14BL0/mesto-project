@@ -1,19 +1,12 @@
 import { addCardToCards, createCard } from './card';
 import { getInputListFromForm, getSubmitFromForm } from './utils'
-import { toggleButtonState, hasInvalidInput } from './validate'
+import { toggleButtonState } from './validate'
 
 const previewDescription = document.querySelector('.popup__description');
 const previewImage = document.querySelector('.popup__picture');
 export const previewPopup = document.querySelector('.popup_type_picture');
-const popupEditForm = document.querySelector('.popup_type_edit-form');
 const popupAddNewPlaceForm = document.querySelector('.popup_type_add-form');
-const profileName = document.querySelector('.profile__title');
-const profileJob = document.querySelector('.profile__subtitle');
-const formProfileEdit = document.querySelector('.form-profile-edit');
 const formAddingNewPlace = document.querySelector('.form-new-place');
-const profileEditNameInput = document.querySelector('.form-profile-edit__name');
-const profileEditJobInput = document.querySelector('.form-profile-edit__job');
-const buttonEditProfile = document.querySelector('.profile__edit-button');
 const buttonAddNewPlace = document.querySelector('.profile__add-button');
 const placeNewNameInput = document.querySelector('.form-new-place__name');
 const placeNewUrlInput = document.querySelector('.form-new-place__url');
@@ -23,21 +16,13 @@ function createCardNewFromAddForm(evt){
   addCardToCards(createCard(placeNewNameInput.value, placeNewUrlInput.value));
 }
 
-function fillEditForm(){
-  profileEditNameInput.value = profileName.textContent;
-  profileEditJobInput.value = profileJob.textContent;
-}
+
 
 function fillNewPlaceForm(){
   formAddingNewPlace.reset();
 }
 
-function saveProfileData(evt){
-  evt.preventDefault();
-  profileName.textContent = profileEditNameInput.value;
-  profileJob.textContent = profileEditJobInput.value;
-  formProfileEdit.reset();
-}
+
 
 export function fillPreview(evt){
   evt.stopPropagation();
@@ -65,14 +50,14 @@ export function openPopup(popup){
   document.addEventListener('mousedown', addDocumentMouseDownListenerHandler);
 }
 
-function closePopup(){
+export function closePopup(){
   const popup = document.querySelector('.popup_opened');
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', addDocumentKeyListenerHandler);
   document.removeEventListener('mousedown', addDocumentMouseDownListenerHandler);
 }
 
-function addFormKeyDownListenerHandler(evt) {
+export function addFormKeyDownListenerHandler(evt) {
   const inputList = getInputListFromForm(formAddingNewPlace, '.form__text-input');
   if(!inputList){
     this.submit();
@@ -80,11 +65,8 @@ function addFormKeyDownListenerHandler(evt) {
 }
 
 function initForms(){
-  formProfileEdit.addEventListener('submit', (evt)=>{
-    saveProfileData(evt);
-    closePopup();
-  });
-  formProfileEdit.addEventListener('keydown', (evt)=>addFormKeyDownListenerHandler);
+
+
   formAddingNewPlace.addEventListener('submit', (evt)=>{
     createCardNewFromAddForm(evt);
     closePopup();
@@ -92,17 +74,12 @@ function initForms(){
   formAddingNewPlace.addEventListener('keydown', (evt)=>addFormKeyDownListenerHandler);
 }
 
-function callToggleButton(form){
+export function callToggleButton(form){
   toggleButtonState(getInputListFromForm(form, '.form__text-input'), getSubmitFromForm(form, '.form__button'), 'popup__button_disabled');
 }
 
 export function initPopups(){
   initForms();
-  buttonEditProfile.addEventListener('click', ()=>{
-    openPopup(popupEditForm);
-    fillEditForm();
-    callToggleButton(popupEditForm);
-  });
   buttonAddNewPlace.addEventListener('click', ()=>{
     openPopup(popupAddNewPlaceForm);
     fillNewPlaceForm();

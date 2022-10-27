@@ -1,12 +1,18 @@
-import { initialCards } from './const';
 import { previewPopup, fillPreview, openPopup } from './modal.js';
+import { getCards } from './api';
+import { getMyId } from './profile';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards');
 
-export function createCard(name, link){
+export function createCard(name, link, cardId, ownerId){
   const cardNew = cardTemplate.querySelector('.card').cloneNode(true);
+  cardNew.dataset.cardId = cardId;
   const imageNewCard = cardNew.querySelector('.card__image');
+  const delBtn = cardNew.querySelector('.card__delete');
+  if(ownerId !== getMyId){
+    delBtn.remove();
+  }
   imageNewCard.src = link;
   imageNewCard.alt = name;
   cardNew.querySelector('.card__text').textContent = name;
@@ -33,9 +39,16 @@ function documentClickListenerHandler(evt) {
   };
 }
 
+function fillCards() {
+  getCards()
+    .then((data)=>{
+      data.forEach(element => {
+        addCardToCards(createCard(element.name, element.link, element._id, element.owner._id));
+      });
+    });
+}
+
 export function initCards(){
-  initialCards.forEach(element => {
-    addCardToCards(createCard(element.name, element.link));
-  });
+  fillCards();
   document.addEventListener('click', documentClickListenerHandler);
 }
