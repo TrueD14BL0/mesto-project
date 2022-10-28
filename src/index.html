@@ -67,7 +67,10 @@
     <article class="card">
       <img class="card__image" src="" alt="">
       <h2 class="card__text"></h2>
-      <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
+      <div class="card__like-container">
+        <button type="button" class="default-button card__like" aria-label="Поставить лайк"></button>
+        <span class="card__like-count">0</span>
+      <div>
       <button type="button" class="default-button card__delete" aria-label="Удалить карточку"></button>
     </article>
   </template>

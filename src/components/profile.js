@@ -1,5 +1,6 @@
 import { getUserInfo, setUserInfo } from './api'
-import { openPopup, callToggleButton, addFormKeyDownListenerHandler as handler, closePopup  } from './modal'
+import { openPopup, closePopup  } from './modal'
+import { callToggleButton, addFormKeyDownListenerHandler as handler  } from './utils'
 import { initCards } from './cards';
 
 const profileName = document.querySelector('.profile__title');

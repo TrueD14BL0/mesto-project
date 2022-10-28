@@ -39,7 +39,7 @@ export const getCards = () => {
   return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards`, 'GET');
 }
 
-export const addNewCard = (name, link) => {
+export const setNewCard = (name, link) => {
   return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards`,
                      'POST',
                       {
@@ -47,4 +47,16 @@ export const addNewCard = (name, link) => {
                         link: link
                       }
                     );
+}
+
+export const delCard = (cardId) => {
+  return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards/${cardId}`, 'DELETE');
+}
+
+export const setLike = (cardId) => {
+  return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards/likes/${cardId}`, 'PUT');
+}
+
+export const delLike = (cardId) => {
+  return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards/likes/${cardId}`, 'DELETE');
 }

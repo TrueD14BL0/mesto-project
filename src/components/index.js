@@ -1,13 +1,10 @@
 import '../styles/index.css';
-import { initPopups } from './modal';
 
 import { enableValidation } from './validate';
 import { initProfile } from './profile';
 
 (function initSiteElements(){
   initProfile();
-
-  initPopups();
   enableValidation({
     formSelector: '.form',
     inputSelector: '.form__text-input',
