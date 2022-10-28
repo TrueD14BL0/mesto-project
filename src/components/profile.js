@@ -1,6 +1,6 @@
-import { getUserInfo } from './api'
+import { getUserInfo, setUserInfo } from './api'
 import { openPopup, callToggleButton, addFormKeyDownListenerHandler as handler, closePopup  } from './modal'
-import { initCards } from './card';
+import { initCards } from './cards';
 
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
@@ -37,8 +37,14 @@ function fillEditForm(){
 
 function saveProfileData(evt){
   evt.preventDefault();
-  profileName.textContent = profileEditNameInput.value;
-  profileJob.textContent = profileEditJobInput.value;
+  setUserInfo(profileEditNameInput.value, profileEditJobInput.value)
+    .then((data)=>{
+      profileName.textContent = data.name;
+      profileJob.textContent = data.about;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   formProfileEdit.reset();
 }
 

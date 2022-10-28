@@ -1,11 +1,15 @@
 const serverToken = 'b342c109-7049-4203-a802-95254b42aad3';
 const cohort = 'plus-cohort-16';
 
-function sendRequest(url, method, body) {
+function sendRequest(url, method, body=null) {
 
-  const fetchHeaders = { authorization: serverToken };
+  const fetchHeaders = { authorization: serverToken,
+                         'Content-Type': 'application/json' };
   const fetchParams = { method: method,
                         headers: fetchHeaders };
+  if(body!==null){
+    fetchParams.body = JSON.stringify(body);
+  }
 
   return fetch(url, fetchParams)
   .then(res => {
@@ -17,20 +21,30 @@ function sendRequest(url, method, body) {
 
 }
 
-export function getUserInfo() {
+export const getUserInfo = () => {
   return sendRequest(`https://nomoreparties.co/v1/${cohort}/users/me`, 'GET');
 }
 
-export function getCards() {
+export const setUserInfo = (name, about) => {
+  return sendRequest(`https://nomoreparties.co/v1/${cohort}/users/me`,
+                      'PATCH',
+                      {
+                        name: name,
+                        about: about
+                      }
+                    );
+}
+
+export const getCards = () => {
   return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards`, 'GET');
 }
 
-export const getInitialCards = () => {
-  return fetch()
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+export const addNewCard = (name, link) => {
+  return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards`,
+                     'POST',
+                      {
+                        name: name,
+                        link: link
+                      }
+                    );
 }

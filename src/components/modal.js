@@ -1,4 +1,4 @@
-import { addCardToCards, createCard } from './card';
+import { addCardToCards, createCard } from './cards';
 import { getInputListFromForm, getSubmitFromForm } from './utils'
 import { toggleButtonState } from './validate'
 
@@ -16,13 +16,9 @@ function createCardNewFromAddForm(evt){
   addCardToCards(createCard(placeNewNameInput.value, placeNewUrlInput.value));
 }
 
-
-
 function fillNewPlaceForm(){
   formAddingNewPlace.reset();
 }
-
-
 
 export function fillPreview(evt){
   evt.stopPropagation();
@@ -32,6 +28,7 @@ export function fillPreview(evt){
   previewImage.src = selectedCard.querySelector('.card__image').src;
   previewImage.alt = cardText;
 }
+
 function addDocumentKeyListenerHandler(evt){
   if(evt.key=='Escape'){
     closePopup();
@@ -65,8 +62,6 @@ export function addFormKeyDownListenerHandler(evt) {
 }
 
 function initForms(){
-
-
   formAddingNewPlace.addEventListener('submit', (evt)=>{
     createCardNewFromAddForm(evt);
     closePopup();
