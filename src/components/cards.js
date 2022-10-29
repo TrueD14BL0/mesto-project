@@ -95,15 +95,20 @@ function fillNewPlaceForm(){
 
 function deleteCard(){
   const card = cardToDel();
-  delCard(card.dataset.cardId)
-    .then(card.remove())
-    .catch((err) => {
-      console.log(err);
-    });
+  if(card!==null){
+    delCard(card.dataset.cardId)
+      .then(card.remove())
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 
 export const clearCardDelMark = ()=>{
-  cardToDel().classList.remove('card_to-del');
+  const card = cardToDel();
+  if(card!==null){
+    card.classList.remove('card_to-del');
+  }
 };
 
 function toggleLike(target){
