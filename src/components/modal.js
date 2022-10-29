@@ -1,3 +1,5 @@
+import { clearCardDelMark } from './cards'
+
 function addDocumentKeyListenerHandler(evt){
   if(evt.key=='Escape'){
     closePopup();
@@ -17,6 +19,7 @@ export function openPopup(popup){
 }
 
 export function closePopup(){
+  clearCardDelMark();
   const popup = document.querySelector('.popup_opened');
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', addDocumentKeyListenerHandler);

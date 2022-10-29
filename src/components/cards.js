@@ -7,12 +7,18 @@ const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.cards');
 const popupAddNewPlaceForm = document.querySelector('.popup_type_add-form');
 const formAddingNewPlace = document.querySelector('.form-new-place');
+const popupSaveProfileBtn = formAddingNewPlace.querySelector('.form__button');
 const buttonAddNewPlace = document.querySelector('.profile__add-button');
 const placeNewNameInput = document.querySelector('.form-new-place__name');
 const placeNewUrlInput = document.querySelector('.form-new-place__url');
 const previewDescription = document.querySelector('.popup__description');
 const previewImage = document.querySelector('.popup__picture');
 const previewPopup = document.querySelector('.popup_type_picture');
+
+const popupDelCard = document.querySelector('.popup_type_del-card-form');
+const formDelCard = document.querySelector('.form-del-card');
+
+const cardToDel = () => document.querySelector('.card_to-del');
 
 function fillLike(like){
   like.classList.add('card__like_active');
@@ -68,26 +74,37 @@ export function addCardToCards(card){
 
 function addNewCard(evt){
   evt.preventDefault();
+  popupSaveProfileBtn.value = 'Сохранение...'
   setNewCard(placeNewNameInput.value, placeNewUrlInput.value)
     .then((data)=>{
       addCardToCards(createCard(data));
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
+    .finally(
+      popupSaveProfileBtn.value = 'Сохранить'
+    );
 }
 
 function fillNewPlaceForm(){
   formAddingNewPlace.reset();
+  placeNewNameInput.dispatchEvent(new Event('input'));
+  placeNewUrlInput.dispatchEvent(new Event('input'));
 }
 
-function deleteCard(card){
+function deleteCard(){
+  const card = cardToDel();
   delCard(card.dataset.cardId)
     .then(card.remove())
     .catch((err) => {
       console.log(err);
     });
 }
+
+export const clearCardDelMark = ()=>{
+  cardToDel().classList.remove('card_to-del');
+};
 
 function toggleLike(target){
   const card = target.closest('.card');
@@ -119,7 +136,8 @@ function documentClickListenerHandler(evt) {
   if(evt.target.classList.contains('card__like')){
     toggleLike(evt.target);
   }else if(evt.target.classList.contains('card__delete')){
-    deleteCard(evt.target.closest('.card'));
+    evt.target.closest('.card').classList.add('card_to-del');
+    openPopup(popupDelCard);
   };
 }
 
@@ -147,5 +165,9 @@ export function initCards(){
     closePopup();
   });
   formAddingNewPlace.addEventListener('keydown', ()=>handler);
+  formDelCard.addEventListener('submit', ()=>{
+    deleteCard();
+    closePopup();
+  });
   document.addEventListener('click', documentClickListenerHandler);
 }

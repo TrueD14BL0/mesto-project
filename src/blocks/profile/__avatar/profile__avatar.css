@@ -4,6 +4,7 @@
   border-radius: 50%;
   object-position: center center;
   object-fit: cover;
+  cursor: pointer;
 }
 
 @media all and (max-width:800px){

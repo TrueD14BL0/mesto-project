@@ -1,8 +1,7 @@
 const serverToken = 'b342c109-7049-4203-a802-95254b42aad3';
 const cohort = 'plus-cohort-16';
 
-function sendRequest(url, method, body=null) {
-
+async function sendRequest(url, method, body=null) {;
   const fetchHeaders = { authorization: serverToken,
                          'Content-Type': 'application/json' };
   const fetchParams = { method: method,
@@ -10,15 +9,11 @@ function sendRequest(url, method, body=null) {
   if(body!==null){
     fetchParams.body = JSON.stringify(body);
   }
-
-  return fetch(url, fetchParams)
-  .then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  });
-
+  const res = await fetch(url, fetchParams);
+  if (res.ok) {
+    return res.json();
+  }
+  return await Promise.reject(`Ошибка: ${res.status}`);
 }
 
 export const getUserInfo = () => {
@@ -59,4 +54,13 @@ export const setLike = (cardId) => {
 
 export const delLike = (cardId) => {
   return sendRequest(`https://nomoreparties.co/v1/${cohort}/cards/likes/${cardId}`, 'DELETE');
+}
+
+export const setNewAvatar = (link) => {
+  return sendRequest(`https://nomoreparties.co/v1/${cohort}/users/me/avatar`,
+                     'PATCH',
+                      {
+                        avatar: link
+                      }
+                    );
 }
