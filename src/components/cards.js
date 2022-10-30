@@ -1,5 +1,4 @@
 import { openPopup, closePopup  } from './modal'
-import { callToggleButton, addFormKeyDownListenerHandler as handler } from './utils'
 import { getCards, setNewCard, delCard, setLike, delLike } from './api';
 import { getMyId } from './profile';
 

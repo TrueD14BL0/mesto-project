@@ -1,4 +1,3 @@
-import { getInputListFromForm, getSubmitFromForm } from './utils'
 
 const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
