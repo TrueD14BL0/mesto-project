@@ -1,27 +1,12 @@
-import { clearCardDelMark } from './cards'
-
-function addDocumentKeyListenerHandler(evt){
-  if(evt.key=='Escape'){
-    closePopup();
-  };
-}
-
-function addDocumentMouseDownListenerHandler(evt) {
-  if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')){
-    closePopup();
-  };
-}
-
-export function openPopup(popup){
+export function openPopup(popup, keyHandler, mouseHandler){
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', addDocumentKeyListenerHandler);
-  document.addEventListener('mousedown', addDocumentMouseDownListenerHandler);
+  document.addEventListener('keydown', keyHandler);
+  document.addEventListener('mousedown', mouseHandler);
 }
 
-export function closePopup(){
-  clearCardDelMark();
+export function closePopup(keyHandler, mouseHandler){
   const popup = document.querySelector('.popup_opened');
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', addDocumentKeyListenerHandler);
-  document.removeEventListener('mousedown', addDocumentMouseDownListenerHandler);
+  document.removeEventListener('keydown', keyHandler);
+  document.removeEventListener('mousedown', mouseHandler);
 }

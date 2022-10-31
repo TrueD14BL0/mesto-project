@@ -1,4 +1,3 @@
-
 const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
@@ -23,7 +22,7 @@ const getErrorMessage = (inputElement)=>{
   return validationMessage;
 }
 
-const isValid = (formElement, inputElement, initObj) => {
+export const isValid = (formElement, inputElement, initObj) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, getErrorMessage(inputElement), initObj.inputErrorClass, initObj.errorClass);
   } else {
@@ -47,20 +46,11 @@ export const toggleButtonState = (inputList, buttonElement, inactiveButtonClass)
   }
 };
 
-const setEventListeners = (formElement, initObj) => {
-  const inputList = getInputListFromForm(formElement, initObj.inputSelector);
-  const buttonElement = getSubmitFromForm(formElement, initObj.submitButtonSelector);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement, initObj);
-      toggleButtonState(inputList, buttonElement, initObj.inactiveButtonClass);
-    });
-  });
-};
+
 
 export const enableValidation = (initObj) => {
   const formList = document.querySelectorAll(initObj.formSelector);
   formList.forEach((formElement) => {
-    setEventListeners(formElement, initObj);
+    initObj.listener(formElement, initObj);
   });
 };
