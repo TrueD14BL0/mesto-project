@@ -1,110 +1,16 @@
 import '../styles/index.css';
 
-import { enableValidation, isValid, toggleButtonState } from './validate';
+import { enableValidation, callToggleButton } from './validate';
 import  * as api from './api';
 import  * as popup from './modal';
-import { createCard } from './cards';
+import  * as c from './const';
+import { createCard, documentCardClickListenerHandler, fillLike, unfillLike } from './cards';
+import { getInputListFromForm } from './utils';
 
-(()=>{
-    let myId = '';
-    const profileName = document.querySelector('.profile__title');
-    const profileJob = document.querySelector('.profile__subtitle');
-    const profileAvatar = document.querySelector('.profile__avatar');
-
-    const buttonEditProfile = document.querySelector('.profile__edit-button');
-    const popupEditForm = document.querySelector('.popup_type_edit-form');
-    const formProfileEdit = document.querySelector('.form-profile-edit');
-    const profileEditNameInput = document.querySelector('.form-profile-edit__name');
-    const profileEditJobInput = document.querySelector('.form-profile-edit__job');
-    const popupEditProfileSaveProfileBtn = formProfileEdit.querySelector('.form__button');
-
-    const buttonEditAvatar = document.querySelector('.profile__avatar-edit-btn');
-    const popupEditAvatarForm = document.querySelector('.popup_type_edit-avatar-form');
-    const editAvatarForm = document.querySelector('.form-edit-avatar');
-    const profileEditAvatarInput = document.querySelector('.form-edit-avatar__url');
-    const popupSaveAvatarBtn = editAvatarForm.querySelector('.form__button');
-
-    const buttonAddNewPlace = document.querySelector('.profile__add-button');
-    const formAddingNewPlace = document.querySelector('.form-new-place');
-    const popupNewPlaceSaveProfileBtn = formAddingNewPlace.querySelector('.form__button');
-    const formDelCard = document.querySelector('.form-del-card');
-    const popupAddNewPlaceForm = document.querySelector('.popup_type_add-form');
-    const cardsContainer = document.querySelector('.cards');
-    const previewDescription = document.querySelector('.popup__description');
-    const previewImage = document.querySelector('.popup__picture');
-    const previewPopup = document.querySelector('.popup_type_picture');
-
-    const placeNewNameInput = document.querySelector('.form-new-place__name');
-    const placeNewUrlInput = document.querySelector('.form-new-place__url');
-    const popupDelCard = document.querySelector('.popup_type_del-card-form');
-    const cardToDel = () => document.querySelector('.card_to-del');
-
-    function startClosePopup() {
-      clearCardDelMark();
-      popup.closePopup(addDocumentKeyListenerHandler, addDocumentMouseDownListenerHandler);
-    }
-
-    function addDocumentKeyListenerHandler(evt){
-      if(evt.key=='Escape'){
-        startClosePopup();
-      };
-    }
-
-    function addDocumentMouseDownListenerHandler(evt) {
-      if(evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-button')){
-        startClosePopup();
-      };
-    }
-
-    function getInputListFromForm(form, selector){
-      return form.querySelectorAll(selector);
-    }
-
-    function getSubmitFromForm(form, selector){
-      return form.querySelector(selector);
-    }
-
-    function fillLike(like){
-      like.classList.add('card__like_active');
-    }
-
-    function unfillLike(like){
-      like.classList.remove('card__like_active');
-    }
-
-    function printLikeCount(card, likeCount) {
-      const LikeEl = card.querySelector('.card__like-count');
-      LikeEl.textContent = likeCount;
-    }
-
-    function toggleLike(target){
-      const card = target.closest('.card');
-      const cardId = card.dataset.cardId;
-      if(target.classList.contains('card__like_active')){
-        unfillLike(target);
-        api.delLike(cardId)
-          .then((data)=>{
-            printLikeCount(card, data.likes.length);
-          })
-          .catch((err) => {
-            fillLike(target);
-            console.log(err);
-          });
-      }else{
-        fillLike(target)
-        api.setLike(cardId)
-          .then((data)=>{
-            printLikeCount(card, data.likes.length);
-          })
-          .catch((err) => {
-            unfillLike(target);
-            console.log(err);
-          });
-      }
-    }
+function startPage(){
 
     function deleteCard(){
-      const card = cardToDel();
+      const card = c.cardToDel();
       if(card!==null){
         api.delCard(card.dataset.cardId)
           .then(card.remove())
@@ -114,28 +20,16 @@ import { createCard } from './cards';
       };
     }
 
-    const setEventListeners = (formElement, initObj) => {
-      const inputList = getInputListFromForm(formElement, initObj.inputSelector);
-      const buttonElement = getSubmitFromForm(formElement, initObj.submitButtonSelector);
-      inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', () => {
-          isValid(formElement, inputElement, initObj);
-          toggleButtonState(inputList, buttonElement, initObj.inactiveButtonClass);
-        });
-      });
-    };
-
   enableValidation({
     formSelector: '.form',
     inputSelector: '.form__text-input',
     submitButtonSelector: '.form__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'form__text-input_error',
-    errorClass: 'form__span_active',
-    listener: setEventListeners
+    errorClass: 'form__span_active'
   });
 
-  const handler = (evt) => {
+  const formKeyListenerHandler = (evt) => {
     const inputList = getInputListFromForm(evt.target, '.form__text-input');
     if(!inputList){
       this.submit();
@@ -143,93 +37,86 @@ import { createCard } from './cards';
   }
 
   function fillEditForm(){
-    profileEditNameInput.value = profileName.textContent;
-    profileEditNameInput.dispatchEvent(new Event('input'));
-    profileEditJobInput.value = profileJob.textContent;
-    profileEditJobInput.dispatchEvent(new Event('input'));
+    c.profileEditNameInput.value = c.profileName.textContent;
+    c.profileEditNameInput.dispatchEvent(new Event('input'));
+    c.profileEditJobInput.value = c.profileJob.textContent;
+    c.profileEditJobInput.dispatchEvent(new Event('input'));
   }
 
   function fillEditAvatarForm(){
-    profileEditAvatarInput.value = profileAvatar.src;
-    profileEditAvatarInput.dispatchEvent(new Event('input'));
+    c.profileEditAvatarInput.value = c.profileAvatar.src;
+    c.profileEditAvatarInput.dispatchEvent(new Event('input'));
   }
 
   function saveProfileData(){
-    popupEditProfileSaveProfileBtn.value = 'Сохранение...';
-    api.setUserInfo(profileEditNameInput.value, profileEditJobInput.value)
+    c.popupEditProfileSaveProfileBtn.value = 'Сохранение...';
+    api.setUserInfo(c.profileEditNameInput.value, c.profileEditJobInput.value)
       .then((data)=>{
-        profileName.textContent = data.name;
-        profileJob.textContent = data.about;
+        c.profileName.textContent = data.name;
+        c.profileJob.textContent = data.about;
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(
-        popupEditProfileSaveProfileBtn.value = 'Сохранить'
+        c.popupEditProfileSaveProfileBtn.value = 'Сохранить'
       );
-    formProfileEdit.reset();
+    c.formProfileEdit.reset();
   }
 
-  const clearCardDelMark = ()=>{
-    const card = cardToDel();
-    if(card!==null){
-      card.classList.remove('card_to-del');
-    }
-  };
-
   function addNewCard(){
-    popupNewPlaceSaveProfileBtn.value = 'Сохранение...'
-    api.setNewCard(placeNewNameInput.value, placeNewUrlInput.value)
+    c.popupNewPlaceSaveProfileBtn.value = 'Сохранение...'
+    api.setNewCard(c.placeNewNameInput.value, c.placeNewUrlInput.value)
       .then((element)=>{
-        cardsContainer.prepend(createCard(element, myId, listenerForPreview, fillLike, printLikeCount));
+        c.cardsContainer.prepend(createCard(element, c.getMyId(), listenerForPreview, deleteCard));
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(
-        popupNewPlaceSaveProfileBtn.value = 'Сохранить'
+        c.popupNewPlaceSaveProfileBtn.value = 'Сохранить'
       );
   }
 
   function fillNewPlaceForm(){
-    formAddingNewPlace.reset();
-    placeNewNameInput.dispatchEvent(new Event('input'));
-    placeNewUrlInput.dispatchEvent(new Event('input'));
+    c.formAddingNewPlace.reset();
+    c.placeNewNameInput.dispatchEvent(new Event('input'));
+    c.placeNewUrlInput.dispatchEvent(new Event('input'));
   }
 
   function saveAvatar(){
-    popupSaveAvatarBtn.value = 'Сохранение...';
-    api.setNewAvatar(profileEditAvatarInput.value)
+    c.popupSaveAvatarBtn.value = 'Сохранение...';
+    api.setNewAvatar(c.profileEditAvatarInput.value)
       .then((data)=>{
-        profileAvatar.src = data.avatar;
+        c.profileAvatar.src = data.avatar;
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(
-        popupSaveAvatarBtn.value = 'Сохранить'
+        c.popupSaveAvatarBtn.value = 'Сохранить'
       );
   }
 
   function fillPreview(evt){
     const selectedCard = evt.target.closest('.card');
     const cardText = selectedCard.querySelector('.card__text').textContent;
-    previewDescription.textContent = cardText;
-    previewImage.src = selectedCard.querySelector('.card__image').src;
-    previewImage.alt = cardText;
+    c.previewDescription.textContent = cardText;
+    c.previewImage.src = selectedCard.querySelector('.card__image').src;
+    c.previewImage.alt = cardText;
   }
 
   const listenerForPreview = (evt)=>{
     evt.stopPropagation();
-    popup.openPopup(previewPopup, addDocumentKeyListenerHandler, addDocumentMouseDownListenerHandler);
+    popup.openPopup(c.previewPopup);
     fillPreview(evt);
   };
 
-  function fillCards() {
+  function initCards() {
     api.getCards()
       .then((data)=>{
         data.forEach(element => {
-          cardsContainer.prepend(createCard(element, myId, listenerForPreview, fillLike, printLikeCount));
+          c.cardsContainer.prepend(createCard(element, c.getMyId(), listenerForPreview, deleteCard));
         });
       })
       .catch((err) => {
@@ -237,80 +124,86 @@ import { createCard } from './cards';
       });
   }
 
-  function initCards(){
-    fillCards();
-    buttonAddNewPlace.addEventListener('click', ()=>{
-      popup.openPopup(popupAddNewPlaceForm, addDocumentKeyListenerHandler, addDocumentMouseDownListenerHandler);
-      fillNewPlaceForm();
-      callToggleButton(popupAddNewPlaceForm);
-    });
-    formAddingNewPlace.addEventListener('submit', (evt)=>{
-      evt.preventDefault();
-      addNewCard();
-      startClosePopup();
-    });
-    formAddingNewPlace.addEventListener('keydown', ()=>handler);
-    formDelCard.addEventListener('submit', (evt)=>{
-      evt.preventDefault();
-      deleteCard();
-      startClosePopup();
-    });
-    document.addEventListener('click', documentClickListenerHandler);
+  c.buttonAddNewPlace.addEventListener('click', ()=>{
+    popup.openPopup(c.popupAddNewPlaceForm);
+    fillNewPlaceForm();
+    callToggleButton(c.popupAddNewPlaceForm);
+  });
+  c.formAddingNewPlace.addEventListener('submit', (evt)=>{
+    evt.preventDefault();
+    addNewCard();
+    popup.closePopup();
+  });
+  c.formAddingNewPlace.addEventListener('keydown', ()=>formKeyListenerHandler);
+  c.formDelCard.addEventListener('submit', (evt)=>{
+    evt.preventDefault();
+    deleteCard();
+    popup.closePopup();
+  });
+
+  function delLike(cardId) {
+    api.delLike(cardId)
+        .then((data)=>{
+          printLikeCount(card, data.likes.length);
+          unfillLike(target);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   }
 
-  function fillProfileInfo(){
+  function setLike(cardId) {
+    api.setLike(cardId)
+    .then((data)=>{
+      fillLike(target)
+      printLikeCount(card, data.likes.length);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  document.addEventListener('click', (evt)=>documentCardClickListenerHandler(evt, delLike, setLike));
+
+  function initProfile(){
     api.getUserInfo()
       .then((data)=>{
-        myId = data._id;
+        c.setMyId(data._id);
         initCards();
-        profileName.textContent = data.name;
-        profileJob.textContent = data.about;
-        profileAvatar.src = data.avatar;
+        c.profileName.textContent = data.name;
+        c.profileJob.textContent = data.about;
+        c.profileAvatar.src = data.avatar;
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  function initProfile(){
-    fillProfileInfo();
-    buttonEditProfile.addEventListener('click', ()=>{
-      popup.openPopup(popupEditForm, addDocumentKeyListenerHandler, addDocumentMouseDownListenerHandler);
-      fillEditForm();
-      callToggleButton(popupEditForm);
-    });
-    buttonEditAvatar.addEventListener('click', ()=>{
-      popup.openPopup(popupEditAvatarForm, addDocumentKeyListenerHandler, addDocumentMouseDownListenerHandler);
-      fillEditAvatarForm();
-      callToggleButton(popupEditAvatarForm);
-    });
-    formProfileEdit.addEventListener('submit', (evt)=>{
-      evt.preventDefault();
-      saveProfileData();
-      startClosePopup();
-    });
-    formProfileEdit.addEventListener('keydown', handler);
-    editAvatarForm.addEventListener('submit', (evt)=>{
-      evt.preventDefault();
-      saveAvatar();
-      startClosePopup();
-    });
-    editAvatarForm.addEventListener('keydown', handler);
-  }
-
-  function callToggleButton(form){
-    toggleButtonState(getInputListFromForm(form, '.form__text-input'), getSubmitFromForm(form, '.form__button'), 'popup__button_disabled');
-  }
-
-  function documentClickListenerHandler(evt) {
-    if(evt.target.classList.contains('card__like')){
-      toggleLike(evt.target);
-    }else if(evt.target.classList.contains('card__delete')){
-      evt.target.closest('.card').classList.add('card_to-del');
-      popup.openPopup(popupDelCard, addDocumentKeyListenerHandler, addDocumentMouseDownListenerHandler);
-    };
-  }
+  c.buttonEditProfile.addEventListener('click', ()=>{
+    popup.openPopup(c.popupEditForm);
+    fillEditForm();
+    callToggleButton(c.popupEditForm);
+  });
+  c.buttonEditAvatar.addEventListener('click', ()=>{
+    popup.openPopup(c.popupEditAvatarForm);
+    fillEditAvatarForm();
+    callToggleButton(c.popupEditAvatarForm);
+  });
+  c.formProfileEdit.addEventListener('submit', (evt)=>{
+    evt.preventDefault();
+    saveProfileData();
+    popup.closePopup();
+  });
+  c.formProfileEdit.addEventListener('keydown', formKeyListenerHandler);
+  c.editAvatarForm.addEventListener('submit', (evt)=>{
+    evt.preventDefault();
+    saveAvatar();
+    popup.closePopup();
+  });
+  c.editAvatarForm.addEventListener('keydown', formKeyListenerHandler);
 
   initProfile();
 
-})();
+};
+
+startPage();

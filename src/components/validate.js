@@ -1,9 +1,15 @@
+import { getInputListFromForm, getSubmitFromForm } from './utils';
+
 const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
 };
+
+export function callToggleButton(form){
+  toggleButtonState(getInputListFromForm(form, '.form__text-input'), getSubmitFromForm(form, '.form__button'), 'popup__button_disabled');
+}
 
 const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -22,6 +28,17 @@ const getErrorMessage = (inputElement)=>{
   return validationMessage;
 }
 
+const setEventListeners = (formElement, initObj) => {
+  const inputList = getInputListFromForm(formElement, initObj.inputSelector);
+  const buttonElement = getSubmitFromForm(formElement, initObj.submitButtonSelector);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement, initObj);
+      toggleButtonState(inputList, buttonElement, initObj.inactiveButtonClass);
+    });
+  });
+};
+
 export const isValid = (formElement, inputElement, initObj) => {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, getErrorMessage(inputElement), initObj.inputErrorClass, initObj.errorClass);
@@ -36,7 +53,7 @@ const hasInvalidInput = (inputList) => {
   })
 };
 
-export const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
+const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.disabled = true;
     buttonElement.classList.add(inactiveButtonClass);
@@ -46,11 +63,9 @@ export const toggleButtonState = (inputList, buttonElement, inactiveButtonClass)
   }
 };
 
-
-
 export const enableValidation = (initObj) => {
   const formList = document.querySelectorAll(initObj.formSelector);
   formList.forEach((formElement) => {
-    initObj.listener(formElement, initObj);
+    setEventListeners(formElement, initObj);
   });
 };
