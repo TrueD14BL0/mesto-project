@@ -4,7 +4,7 @@ import { enableValidation, callToggleButton } from './validate';
 import  * as api from './api';
 import  * as popup from './modal';
 import  * as c from './const';
-import { createCard, documentCardClickListenerHandler, fillLike, unfillLike } from './cards';
+import { createCard, fillLike, unfillLike, printLikeCount } from './cards';
 import { getInputListFromForm } from './utils';
 
 function startPage(){
@@ -13,7 +13,10 @@ function startPage(){
       const card = c.cardToDel();
       if(card!==null){
         api.delCard(card.dataset.cardId)
-          .then(card.remove())
+          .then(()=>{
+            card.remove();
+            popup.closePopup();
+          })
           .catch((err) => {
             console.log(err);
           });
@@ -54,6 +57,7 @@ function startPage(){
       .then((data)=>{
         c.profileName.textContent = data.name;
         c.profileJob.textContent = data.about;
+        popup.closePopup();
       })
       .catch((err) => {
         console.log(err);
@@ -64,11 +68,38 @@ function startPage(){
     c.formProfileEdit.reset();
   }
 
+  function openDelCardPopup() {
+    popup.openPopup(c.popupDelCard);
+  }
+
+  function delLike(card, cardId, likePic) {
+    api.delLike(cardId)
+        .then((data)=>{
+          printLikeCount(card, data.likes.length);
+          unfillLike(likePic);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }
+
+  function setLike(card, cardId, likePic) {
+    api.setLike(cardId)
+    .then((data)=>{
+      fillLike(likePic)
+      printLikeCount(card, data.likes.length);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   function addNewCard(){
     c.popupNewPlaceSaveProfileBtn.value = 'Сохранение...'
     api.setNewCard(c.placeNewNameInput.value, c.placeNewUrlInput.value)
       .then((element)=>{
-        c.cardsContainer.prepend(createCard(element, c.getMyId(), listenerForPreview, deleteCard));
+        c.cardsContainer.append(createCard(element, c.getMyId(), listenerForPreview, openDelCardPopup, {setLike:setLike, delLike: delLike}));
+        popup.closePopup();
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +147,7 @@ function startPage(){
     api.getCards()
       .then((data)=>{
         data.forEach(element => {
-          c.cardsContainer.prepend(createCard(element, c.getMyId(), listenerForPreview, deleteCard));
+          c.cardsContainer.append(createCard(element, c.getMyId(), listenerForPreview,  openDelCardPopup, {setLike:setLike, delLike: delLike}));
         });
       })
       .catch((err) => {
@@ -132,38 +163,12 @@ function startPage(){
   c.formAddingNewPlace.addEventListener('submit', (evt)=>{
     evt.preventDefault();
     addNewCard();
-    popup.closePopup();
   });
   c.formAddingNewPlace.addEventListener('keydown', ()=>formKeyListenerHandler);
   c.formDelCard.addEventListener('submit', (evt)=>{
     evt.preventDefault();
     deleteCard();
-    popup.closePopup();
   });
-
-  function delLike(cardId) {
-    api.delLike(cardId)
-        .then((data)=>{
-          printLikeCount(card, data.likes.length);
-          unfillLike(target);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  }
-
-  function setLike(cardId) {
-    api.setLike(cardId)
-    .then((data)=>{
-      fillLike(target)
-      printLikeCount(card, data.likes.length);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
-  document.addEventListener('click', (evt)=>documentCardClickListenerHandler(evt, delLike, setLike));
 
   function initProfile(){
     api.getUserInfo()
@@ -192,7 +197,6 @@ function startPage(){
   c.formProfileEdit.addEventListener('submit', (evt)=>{
     evt.preventDefault();
     saveProfileData();
-    popup.closePopup();
   });
   c.formProfileEdit.addEventListener('keydown', formKeyListenerHandler);
   c.editAvatarForm.addEventListener('submit', (evt)=>{

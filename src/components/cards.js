@@ -8,34 +8,24 @@ export function unfillLike(like){
   like.classList.remove('card__like_active');
 }
 
-function printLikeCount(card, likeCount) {
+export function printLikeCount(card, likeCount) {
   const LikeEl = card.querySelector('.card__like-count');
   LikeEl.textContent = likeCount;
 }
 
-function toggleLike(target, delLike, setLike){
-  const card = target.closest('.card');
-  const cardId = card.dataset.cardId;
-  if(target.classList.contains('card__like_active')){
-    delLike(cardId);
+function toggleLike(card, cardId, likePic, listenersForLikebtn){
+  if(likePic.classList.contains('card__like_active')){
+    listenersForLikebtn.delLike(card, cardId, likePic);
   }else{
-    setLike(cardId);
+    listenersForLikebtn.setLike(card, cardId, likePic);
   }
 }
 
-export function documentCardClickListenerHandler(evt, delLike, setLike) {
-  if(evt.target.classList.contains('card__like')){
-    toggleLike(evt.target, delLike, setLike);
-  }else if(evt.target.classList.contains('card__delete')){
-    evt.target.closest('.card').classList.add('card_to-del');
-    popup.openPopup(c.popupDelCard);
-  };
-}
-
-export function createCard(elementData, myId, listenerForPreview, listenerForDelbtn){
+export function createCard(elementData, myId, listenerForPreview, listenerForDelbtn, listenersForLikebtn){
   const cardNew = cardTemplate.querySelector('.card').cloneNode(true);
   const imageNewCard = cardNew.querySelector('.card__image');
   const likePic = cardNew.querySelector('.card__like');
+  cardNew.dataset.cardId = elementData._id;
   printLikeCount(cardNew, elementData.likes.length);
   const iLiked = elementData.likes.some((liker)=>{
     return liker._id === myId;
@@ -47,7 +37,8 @@ export function createCard(elementData, myId, listenerForPreview, listenerForDel
   if(elementData.owner._id !== myId){
     delBtn.remove();
   }
-  delBtn.addEventListener('click', ()=>(listenerForDelbtn(cardNew, elementData._id)))
+  delBtn.addEventListener('click', ()=>{cardNew.classList.add('card_to-del'); listenerForDelbtn();});
+  likePic.addEventListener('click', (evt)=>toggleLike(cardNew, elementData._id, evt.target, listenersForLikebtn));
   imageNewCard.src = elementData.link;
   imageNewCard.alt = elementData.name;
   cardNew.querySelector('.card__text').textContent = elementData.name;
